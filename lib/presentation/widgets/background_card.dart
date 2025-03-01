@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_app/api/api_constants.dart';
 import 'package:netflix_app/core/colors.dart';
-import 'package:netflix_app/core/constants.dart';
+import 'package:netflix_app/models/downloads_model.dart';
 import 'package:netflix_app/presentation/home/screen_home.dart';
 
 class BackgroundCard extends StatelessWidget {
-  const BackgroundCard({super.key});
+  final List<DownloadsModel> imageList;
+
+  const BackgroundCard({super.key,required this.imageList});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,9 @@ class BackgroundCard extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 600,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(kmainImage),
+              image: NetworkImage(ApiConstants.kBaseUrl+imageList[1].posterPath!),
             ),
           ),
         ),

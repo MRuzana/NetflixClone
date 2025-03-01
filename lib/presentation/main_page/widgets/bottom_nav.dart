@@ -20,6 +20,8 @@ class BottomNavigationWidget extends StatelessWidget {
 
 
       type: BottomNavigationBarType.fixed,
+      unselectedFontSize: 12,
+      selectedFontSize: 12 ,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
       selectedIconTheme: const IconThemeData(

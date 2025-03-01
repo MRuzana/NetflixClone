@@ -16,23 +16,32 @@ class ComingSoonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    String date = newAndHotModel.releaseDate!;
+    List<String> monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    List<String> dateParts = date.split('-');
+  
+    int monthNumber = int.parse(dateParts[1]);
+    String monthAbbreviation = monthAbbreviations[monthNumber - 1];
+    String day = dateParts[2];
+    
     return Row(
       children: [
         
-        const SizedBox(
+        SizedBox(
           width: 50,
           height: 450,
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('FEB',style: TextStyle(
+              Text(monthAbbreviation,style: const TextStyle(
                 fontSize: 16,
                 color: kGrey,
               ),),
-              Text('11',style: TextStyle(
+              Text(day,style: const TextStyle(
                 fontSize: 30,
-                letterSpacing: 4,
+                letterSpacing: 3,
                 fontWeight: FontWeight.bold,
               ),)
             ],
@@ -40,7 +49,7 @@ class ComingSoonWidget extends StatelessWidget {
         ),
         SizedBox(
           width: size.width - 50,
-          height: 450,
+        //  height: 450,
           child:  Column(
           
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,27 +60,25 @@ class ComingSoonWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(newAndHotModel.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                     maxLines: 1,
+                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 25 ,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: -3 ,
+                      letterSpacing: -3,
                       
                       
                     ),),
                   ),
                   const Spacer(),
-                  const Expanded(
-                    child: Row(
-                      children: [
-                        CustomButton(icon: Icons.all_out_sharp, title: 'Remind me',iconSize: 18,textSize: 11,),
-                        kwidth,
-                        CustomButton(icon: Icons.info, title: 'Info',iconSize: 18,textSize: 11,),
-                        kwidth,
-                        
-                      ],
-                    ),
+                  const Row(
+                    children: [
+                      CustomButton(icon: Icons.all_out_sharp, title: 'Remind me',iconSize: 18,textSize: 11,),
+                      kwidth,
+                      CustomButton(icon: Icons.info, title: 'Info',iconSize: 18,textSize: 11,),
+                      kwidth,
+                      
+                    ],
                   ),
                   
                 ],
@@ -79,11 +86,14 @@ class ComingSoonWidget extends StatelessWidget {
               kHeight,
               const Text('Coming on Friday'),
               kHeight,
-              Text(newAndHotModel.title,style: const TextStyle(
+              Text(
+                
+                newAndHotModel.title,style: const TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+                
               ),),
-              Expanded(child: Text(newAndHotModel.description,style: const TextStyle(color: kGrey),))                                                 
+              Text(newAndHotModel.description,style: const TextStyle(color: kGrey),)                                                 
             ],
           ),
         ),

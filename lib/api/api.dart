@@ -36,6 +36,8 @@ class Api{
     }
   }
 
+
+
   Future<List<DownloadsModel>>getLastYearMovies()async{
     final response = await http.get(Uri.parse(_lastyearMovies));
     if(response.statusCode == 200){

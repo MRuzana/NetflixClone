@@ -18,6 +18,7 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
+  late Future<List<DownloadsModel>> mainImage;
   late Future<List<DownloadsModel>> trendingImagelist;
   late Future<List<DownloadsModel>> lastYearMoviesList;
   late Future<List<DownloadsModel>> tenseDramas;
@@ -28,6 +29,7 @@ class _ScreenHomeState extends State<ScreenHome> {
   @override
   void initState() {
     super.initState();
+    mainImage = Api().getTrendingMovies();
     trendingImagelist = Api().getTrendingMovies();
     lastYearMoviesList = Api().getLastYearMovies();
     tenseDramas = Api().getTenseDramas();
@@ -38,6 +40,7 @@ class _ScreenHomeState extends State<ScreenHome> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
         body: ValueListenableBuilder(
             valueListenable: scrollNotifier,
             builder: (context, index, _) {
@@ -56,9 +59,26 @@ class _ScreenHomeState extends State<ScreenHome> {
                   children: [
                     ListView(
                       children:  [
-                        const BackgroundCard(),
+                      //  const BackgroundCard(),
+                       SizedBox(
+                        child: FutureBuilder(
+                          future: mainImage, 
+                          builder: (context,snapshot){
+                            if(snapshot.hasError){
+                              return Center(child: Text(snapshot.error.toString()));
+                            }
+                            else if(snapshot.hasData){
+                              return BackgroundCard(imageList: snapshot.data!);
+                            }
+                            else{
+                              return const Center(child: CircularProgressIndicator(),);
+                            }
+                          }),
+                      ),
+
+
                         kHeight,
-                      //  MainTitleCard(cardTitle: 'Released in the past year'),
+                      
                       SizedBox(
                         child: FutureBuilder(
                           future: lastYearMoviesList, 
